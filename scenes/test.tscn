@@ -1,0 +1,43 @@
+[gd_scene load_steps=5 format=3 uid="uid://cvq8tvc4accli"]
+
+[ext_resource type="PackedScene" uid="uid://bu0d7qsj7tncx" path="res://scenes/player.tscn" id="1_o5qli"]
+[ext_resource type="Texture2D" uid="uid://cvacragf765t0" path="res://images/checkboard.png" id="2_0wfyh"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_o5qli"]
+albedo_color = Color(0.921569, 0.729412, 0.0901961, 1)
+albedo_texture = ExtResource("2_0wfyh")
+uv1_triplanar = true
+
+[sub_resource type="Environment" id="Environment_o5qli"]
+background_mode = 1
+background_color = Color(0.358562, 0.743781, 1, 1)
+ambient_light_source = 2
+ambient_light_color = Color(0.76575, 0.725391, 0.738999, 1)
+tonemap_mode = 2
+tonemap_exposure = 0.83
+fog_enabled = true
+fog_light_color = Color(0.460958, 0.691016, 0.98209, 1)
+fog_height = 0.5
+fog_height_density = 0.1
+
+[node name="Test" type="Node3D"]
+
+[node name="Player" parent="." instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00334328, -0.00953388, 0.00584936)
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, -12.4907, -0.5)
+use_collision = true
+size = Vector3(11, 25, 14)
+material = SubResource("StandardMaterial3D_o5qli")
+
+[node name="CSGBox3D2" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 9.5, -12.4907, -0.5)
+use_collision = true
+size = Vector3(7, 25, 14)
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, -0.258819, 0.965926, 0, -0.965926, -0.258819, 0, 8.75766, -7)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_o5qli")
