@@ -1,0 +1,16 @@
+# Made in Blockbench 5.0.4
+newmtl m_b352cb39-0db2-c583-477d-715a58de9b24
+map_Kd matress.png
+newmtl m_35e46727-3e63-e29d-5d57-dca9a7fe6f83
+map_Kd front_left.png
+newmtl m_7ab8b221-5207-3c98-7bfc-737a5389adf2
+map_Kd front_right.png
+newmtl m_31df94a4-d087-4b2e-186c-bba950376a05
+map_Kd back_right.png
+newmtl m_73a11d4e-3937-6f67-6292-f3d042d98361
+map_Kd back_left.png
+newmtl m_93149fc6-56b5-2d78-ca8d-9d0bf8931eaa
+map_Kd blanket.png
+newmtl m_8422ac08-7598-2381-17a5-37c0d246e46a
+map_Kd pillow.png
+newmtl none
