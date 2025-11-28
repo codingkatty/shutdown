@@ -12,7 +12,6 @@ var state_machine = State.PATROLLING
 
 var all_points = []
 var next_point = 0
-
 var seen_player = false
 
 func _ready() -> void:
@@ -20,12 +19,12 @@ func _ready() -> void:
 	for x in get_node(patrol_path).get_children():
 		all_points.append(x.global_position + Vector3(0, 1, 0))
 
-func _physics_process(_delta: float) -> void:
+func _physics_process(delta: float) -> void:
 	match state_machine:
 		State.IDLE:
 			velocity = Vector3.ZERO
 		State.PATROLLING:
-			patrolling(_delta)
+			patrolling(delta)
 		State.CHASING:
 			velocity = Vector3.ZERO
 
@@ -47,7 +46,10 @@ func patrolling(delta):
 	velocity = velocity.lerp(dir_dir * 100.0 * delta, 0.1)
 
 	dir_dir.y = 0
+	var old = transform.basis
 	look_at(global_position + dir_dir + Vector3(0.1, 0, 0), Vector3.UP)
+	var new = transform.basis
+	transform.basis = lerp(old.orthonormalized(), new.orthonormalized(), .1)
 
 func check_sight():
 	if seen_player:
@@ -65,6 +67,7 @@ func check_sight():
 func _on_fov_body_entered(body:Node3D) -> void:
 	if body.is_in_group("player"):
 		seen_player = true
+		state_machine = State.CHASING
 		check_sight()
 
 func _on_fov_body_exited(body:Node3D) -> void:

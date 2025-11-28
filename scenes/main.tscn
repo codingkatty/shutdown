@@ -1,11 +1,29 @@
-[gd_scene load_steps=13 format=3 uid="uid://bsgmy8js16idl"]
+[gd_scene load_steps=16 format=3 uid="uid://bsgmy8js16idl"]
 
 [ext_resource type="PackedScene" uid="uid://bu0d7qsj7tncx" path="res://scenes/player.tscn" id="1_o5qli"]
 [ext_resource type="Texture2D" uid="uid://cvacragf765t0" path="res://images/checkboard.png" id="2_0wfyh"]
 [ext_resource type="Texture2D" uid="uid://c3a00ypoerty" path="res://images/bluewood-floor.png" id="2_jyhfs"]
-[ext_resource type="PackedScene" uid="uid://brxcvcxfggwjy" path="res://enemy.tscn" id="3_sugp2"]
+[ext_resource type="PackedScene" uid="uid://ysgqoqt7vkr" path="res://assets/desk/desk.gltf" id="3_o6xl0"]
+[ext_resource type="PackedScene" uid="uid://brxcvcxfggwjy" path="res://scenes/enemy.tscn" id="3_sugp2"]
 [ext_resource type="Texture2D" uid="uid://c8x7rgvjw6yey" path="res://images/crosshair.png" id="4_jyhfs"]
 [ext_resource type="PackedScene" uid="uid://dlrmytjujovaa" path="res://assets/bed/bed.gltf" id="4_tbgi4"]
+
+[sub_resource type="GDScript" id="GDScript_o6xl0"]
+script/source = "extends SubViewportContainer
+
+@onready var player = get_node(\"SubViewport/Player\")
+
+func _ready():
+	set_process_unhandled_input(true)
+
+func _input(event):
+	if event is InputEventMouse:
+		var mouseEvent = event.duplicate()
+		mouseEvent.position = get_global_transform_with_canvas().affine_inverse() * event.position
+		player._unhandled_input(mouseEvent)
+	else:
+		player._unhandled_input(event)
+"
 
 [sub_resource type="Environment" id="Environment_o5qli"]
 background_mode = 1
@@ -23,6 +41,9 @@ uv1_scale = Vector3(0.6, 0.6, 0.6)
 uv1_triplanar = true
 texture_filter = 0
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_o6xl0"]
+size = Vector3(2.87687, 1.37836, 1.24896)
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jyhfs"]
 size = Vector3(4.49426, 0.82373, 2.80249)
 
@@ -35,108 +56,18 @@ polygons = [PackedInt32Array(2, 1, 0), PackedInt32Array(2, 0, 3), PackedInt32Arr
 agent_radius = 1.0
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tbgi4"]
-albedo_color = Color(0.869894, 0.863756, 0.369711, 1)
+albedo_color = Color(0.894031, 0.927849, 0.988526, 1)
 albedo_texture = ExtResource("2_0wfyh")
 uv1_scale = Vector3(0.8, 0.8, 0.8)
 uv1_triplanar = true
 
 [node name="Main" type="Node3D"]
 
-[node name="Player" parent="." instance=ExtResource("1_o5qli")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.42191, 0.501453, 11.5046)
-
-[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
-environment = SubResource("Environment_o5qli")
-
-[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
-transform = Transform3D(0.35979, 0.635645, -0.683013, 0.00623592, 0.73038, 0.683012, 0.933013, -0.25, 0.25882, -24.9822, 17.6803, 6.89113)
-light_energy = 0.838
-light_indirect_energy = 0.0
-shadow_opacity = 0.42
-shadow_blur = 0.0
-sky_mode = 1
-
-[node name="OmniLight3D" type="OmniLight3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5.99782, 13.0685)
-light_color = Color(0.71425, 0.785356, 0.930616, 1)
-light_energy = 5.01
-light_volumetric_fog_energy = 0.0
-light_specular = 6.0
-shadow_enabled = true
-shadow_blur = 0.0
-omni_range = 7.61
-omni_attenuation = 1.379
-
-[node name="patrol_1" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8668, -0.00764561, -3.0287)
-
-[node name="1" type="Marker3D" parent="patrol_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 12)
-
-[node name="2" type="Marker3D" parent="patrol_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -2)
-
-[node name="3" type="Marker3D" parent="patrol_1"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 5)
-
-[node name="floor" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, -7, 11.5)
-use_collision = true
-size = Vector3(10, 14, 12)
-material = SubResource("StandardMaterial3D_o5qli")
-
-[node name="StaticBody3D" type="StaticBody3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.14845, 0, 14.9816)
-
-[node name="bed" parent="StaticBody3D" instance=ExtResource("4_tbgi4")]
-transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 0, 0, 0)
-
-[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.973083, 0.422333, 0)
-shape = SubResource("BoxShape3D_jyhfs")
-
-[node name="wall1" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 11.5)
-use_collision = true
-size = Vector3(1, 6, 12)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="wall2" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 17)
-use_collision = true
-size = Vector3(9, 6, 1)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="wall3" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 6)
-use_collision = true
-size = Vector3(9, 6, 1)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="ceiling" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 6.5, 11.5)
-use_collision = true
-size = Vector3(10, 1, 12)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
-navigation_mesh = SubResource("NavigationMesh_0wfyh")
-
-[node name="test wall" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -13)
-use_collision = true
-size = Vector3(9, 6, 0.5)
-material = SubResource("StandardMaterial3D_jyhfs")
-
-[node name="floor2" type="CSGBox3D" parent="NavigationRegion3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -7, -1)
-use_collision = true
-size = Vector3(19, 14, 59)
-material = SubResource("StandardMaterial3D_tbgi4")
-
 [node name="crosshair" type="CanvasLayer" parent="."]
 
 [node name="TextureRect" type="TextureRect" parent="crosshair"]
+self_modulate = Color(0.423972, 0.542313, 0.858202, 1)
+top_level = true
 texture_filter = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -150,7 +81,126 @@ offset_bottom = 14.0
 grow_horizontal = 2
 grow_vertical = 2
 texture = ExtResource("4_jyhfs")
+metadata/_edit_use_anchors_ = true
 
-[node name="Enemy" parent="." instance=ExtResource("3_sugp2")]
+[node name="SubViewportContainer" type="SubViewportContainer" parent="."]
+texture_filter = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 4
+mouse_target = true
+script = SubResource("GDScript_o6xl0")
+
+[node name="SubViewport" type="SubViewport" parent="SubViewportContainer"]
+handle_input_locally = false
+size = Vector2i(288, 162)
+render_target_update_mode = 4
+
+[node name="Player" parent="SubViewportContainer/SubViewport" instance=ExtResource("1_o5qli")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.42191, 0.501453, 11.5046)
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="SubViewportContainer/SubViewport"]
+environment = SubResource("Environment_o5qli")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(0.35979, 0.635645, -0.683013, 0.00623592, 0.73038, 0.683012, 0.933013, -0.25, 0.25882, -24.9822, 17.6803, 6.89113)
+light_energy = 0.838
+light_indirect_energy = 0.0
+shadow_opacity = 0.42
+shadow_blur = 0.0
+sky_mode = 1
+
+[node name="OmniLight3D" type="OmniLight3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8, 5.99782, 10.0685)
+light_color = Color(0.775472, 0.812213, 0.559561, 1)
+light_energy = 7.596
+light_specular = 6.0
+shadow_enabled = true
+shadow_blur = 1.111
+omni_range = 29.188
+omni_attenuation = 1.5
+
+[node name="patrol_1" type="Node3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -25.8668, -0.00764561, -3.0287)
+
+[node name="1" type="Marker3D" parent="SubViewportContainer/SubViewport/patrol_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 33, 0, 12)
+
+[node name="2" type="Marker3D" parent="SubViewportContainer/SubViewport/patrol_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 29, 0, -2)
+
+[node name="3" type="Marker3D" parent="SubViewportContainer/SubViewport/patrol_1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 35, 0, 5)
+
+[node name="floor" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, -7, 11.5)
+use_collision = true
+size = Vector3(10, 14, 12)
+material = SubResource("StandardMaterial3D_o5qli")
+
+[node name="desk" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -9.75858, 0, 7.69634)
+
+[node name="desk" parent="SubViewportContainer/SubViewport/desk" instance=ExtResource("3_o6xl0")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/desk"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0579205, 0.687645, -0.00199318)
+shape = SubResource("BoxShape3D_o6xl0")
+
+[node name="bed" type="StaticBody3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.14845, 0, 14.9816)
+
+[node name="bed" parent="SubViewportContainer/SubViewport/bed" instance=ExtResource("4_tbgi4")]
+transform = Transform3D(-1.31134e-07, 0, -3, 0, 3, 0, 3, 0, -1.31134e-07, 0, 0, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="SubViewportContainer/SubViewport/bed"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.973083, 0.422333, 0)
+shape = SubResource("BoxShape3D_jyhfs")
+
+[node name="wall1" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12, 3, 11.5)
+use_collision = true
+size = Vector3(1, 6, 12)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="wall2" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 17)
+use_collision = true
+size = Vector3(9, 6, 1)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="wall3" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7, 3, 6)
+use_collision = true
+size = Vector3(9, 6, 1)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="ceiling" type="CSGBox3D" parent="SubViewportContainer/SubViewport"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.5, 6.5, 11.5)
+use_collision = true
+size = Vector3(10, 1, 12)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="SubViewportContainer/SubViewport"]
+navigation_mesh = SubResource("NavigationMesh_0wfyh")
+
+[node name="test wall" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 6, 3, -13)
+use_collision = true
+size = Vector3(9, 6, 0.5)
+material = SubResource("StandardMaterial3D_jyhfs")
+
+[node name="floor2" type="CSGBox3D" parent="SubViewportContainer/SubViewport/NavigationRegion3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 8, -7, -1)
+use_collision = true
+size = Vector3(19, 14, 59)
+material = SubResource("StandardMaterial3D_tbgi4")
+
+[node name="Enemy" parent="SubViewportContainer/SubViewport" instance=ExtResource("3_sugp2")]
 player_path = NodePath("../Player")
 patrol_path = NodePath("../patrol_1")
