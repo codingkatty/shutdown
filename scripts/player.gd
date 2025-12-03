@@ -1,9 +1,17 @@
 extends CharacterBody3D
 
-@export_group("headbob")
+@export var transition_path: NodePath
+var transition_player = null
+
 @export var headbob_frequency = 2.0
 @export var headbob_amplitude = 0.06
 var headbob_time = 0.0
+
+@export var healthbar_path: NodePath
+@export var healthlabel_path: NodePath
+var healthbar = null
+var healthlabel = null
+var health = 100
 
 @onready var timer = $Timer
 var sprinting = false
@@ -13,6 +21,12 @@ var speed = default_speed
 
 func _ready():
 	Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
+
+	healthbar = get_node(healthbar_path)
+	healthlabel = get_node(healthlabel_path)
+	set_health()
+
+	transition_player = get_node(transition_path)
 
 func _unhandled_input(event):
 	if event is InputEventMouseMotion:
@@ -61,5 +75,22 @@ func headbob(time):
 	headbob_position.x = cos(time * headbob_frequency / 2) * headbob_amplitude
 	return headbob_position
 
+func set_health() -> void:
+	healthbar.value = health
+	healthlabel.text = "HP: %d" % health + "%"
+
+func damage(amount: int) -> void:
+	health -= amount
+	set_health()
+
 func _on_timer_timeout() -> void:
 	sprinting = false
+
+func _on_killzone_body_entered(body:Node3D) -> void:
+	if body == self:
+		call_deferred("reload_scene")
+
+func reload_scene() -> void:
+	transition_player.play("fade_out")
+	await transition_player.animation_finished
+	get_tree().reload_current_scene()

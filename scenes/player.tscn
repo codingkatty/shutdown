@@ -15,6 +15,8 @@ shader_parameter/normal_threshold = 0.6
 shader_parameter/darken_amount = 0.3
 shader_parameter/lighten_amount = 1.5
 shader_parameter/light_direction = Vector3(-0.96, -0.18, 0.2)
+shader_parameter/fade_start = 0.0
+shader_parameter/fade_end = -10.0
 
 [sub_resource type="QuadMesh" id="QuadMesh_g2els"]
 material = SubResource("ShaderMaterial_tipki")

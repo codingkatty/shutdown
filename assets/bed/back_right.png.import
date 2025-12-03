@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://b0rq0ckbtx8d5"
 path.s3tc="res://.godot/imported/back_right.png-7c9fe14d672628bc91fe9c4e0dd0f5c1.s3tc.ctex"
+path.etc2="res://.godot/imported/back_right.png-7c9fe14d672628bc91fe9c4e0dd0f5c1.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/bed/back_right.png"
-dest_files=["res://.godot/imported/back_right.png-7c9fe14d672628bc91fe9c4e0dd0f5c1.s3tc.ctex"]
+dest_files=["res://.godot/imported/back_right.png-7c9fe14d672628bc91fe9c4e0dd0f5c1.s3tc.ctex", "res://.godot/imported/back_right.png-7c9fe14d672628bc91fe9c4e0dd0f5c1.etc2.ctex"]
 
 [params]
 

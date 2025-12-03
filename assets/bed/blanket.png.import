@@ -4,15 +4,16 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://bs2dobdnu5fsj"
 path.s3tc="res://.godot/imported/blanket.png-6f43431386dfcdfb8000a5001bdd83ac.s3tc.ctex"
+path.etc2="res://.godot/imported/blanket.png-6f43431386dfcdfb8000a5001bdd83ac.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 
 [deps]
 
 source_file="res://assets/bed/blanket.png"
-dest_files=["res://.godot/imported/blanket.png-6f43431386dfcdfb8000a5001bdd83ac.s3tc.ctex"]
+dest_files=["res://.godot/imported/blanket.png-6f43431386dfcdfb8000a5001bdd83ac.s3tc.ctex", "res://.godot/imported/blanket.png-6f43431386dfcdfb8000a5001bdd83ac.etc2.ctex"]
 
 [params]
 

@@ -2,21 +2,18 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bukqgepqeanw8"
-path.s3tc="res://.godot/imported/bed_3.png-9a1a566f5234fc51896f9917d8554e52.s3tc.ctex"
-path.etc2="res://.godot/imported/bed_3.png-9a1a566f5234fc51896f9917d8554e52.etc2.ctex"
+uid="uid://cpngoqdpr0wfe"
+path.s3tc="res://.godot/imported/fence.png-e59339bbe6234ca58312f0fdb45a2e6f.s3tc.ctex"
+path.etc2="res://.godot/imported/fence.png-e59339bbe6234ca58312f0fdb45a2e6f.etc2.ctex"
 metadata={
 "imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
-generator_parameters={
-"md5": "ccbaf53cc876934e6c6f92a10d122d34"
-}
 
 [deps]
 
-source_file="res://assets/bed/bed_3.png"
-dest_files=["res://.godot/imported/bed_3.png-9a1a566f5234fc51896f9917d8554e52.s3tc.ctex", "res://.godot/imported/bed_3.png-9a1a566f5234fc51896f9917d8554e52.etc2.ctex"]
+source_file="res://images/fence.png"
+dest_files=["res://.godot/imported/fence.png-e59339bbe6234ca58312f0fdb45a2e6f.s3tc.ctex", "res://.godot/imported/fence.png-e59339bbe6234ca58312f0fdb45a2e6f.etc2.ctex"]
 
 [params]
 

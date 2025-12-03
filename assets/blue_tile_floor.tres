@@ -1,0 +1,10 @@
+[gd_resource type="StandardMaterial3D" load_steps=2 format=3 uid="uid://dheeg4pyi6if7"]
+
+[ext_resource type="Texture2D" uid="uid://d1qbtbyct35cf" path="res://images/square-pattern.png" id="1_t3vfc"]
+
+[resource]
+albedo_color = Color(0.859836, 0.914738, 0.982872, 1)
+albedo_texture = ExtResource("1_t3vfc")
+uv1_scale = Vector3(2, 2, 2)
+uv1_triplanar = true
+texture_filter = 0

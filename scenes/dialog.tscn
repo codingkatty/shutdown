@@ -1,0 +1,52 @@
+[gd_scene load_steps=4 format=3 uid="uid://dow8i1k8uxhrv"]
+
+[ext_resource type="FontFile" uid="uid://cfeu5vmticfti" path="res://assets/Pixeled.ttf" id="1_36pgd"]
+[ext_resource type="Texture2D" uid="uid://dns5sm6ps5jbm" path="res://images/pixel-box.png" id="1_pkx4w"]
+[ext_resource type="Script" uid="uid://dkber0h11pkly" path="res://scenes/dialog_player.gd" id="1_tmfn4"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_tmfn4")
+
+[node name="Name" type="RichTextLabel" parent="."]
+offset_left = 84.0
+offset_top = 367.0
+offset_right = 776.0
+offset_bottom = 502.0
+theme_override_colors/default_color = Color(0, 0, 0, 1)
+theme_override_fonts/normal_font = ExtResource("1_36pgd")
+theme_override_font_sizes/normal_font_size = 48
+text = "Danny"
+
+[node name="Contents" type="RichTextLabel" parent="."]
+offset_left = 99.0
+offset_top = 482.0
+offset_right = 1017.0
+offset_bottom = 614.0
+theme_override_colors/default_color = Color(0.202657, 0.179214, 0.332757, 1)
+theme_override_constants/line_separation = -6
+theme_override_font_sizes/normal_font_size = 30
+text = "hi hi yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap yap"
+visible_characters_behavior = 1
+
+[node name="NinePatchRect" type="NinePatchRect" parent="."]
+z_index = -1
+texture_filter = 1
+anchors_preset = -1
+anchor_left = 0.497
+anchor_top = 0.963
+anchor_right = 0.497
+anchor_bottom = 0.963
+offset_left = -515.544
+offset_top = -231.024
+offset_right = -399.544
+offset_bottom = -205.024
+grow_horizontal = 2
+grow_vertical = 0
+scale = Vector2(8.87975, 8.87975)
+size_flags_horizontal = 4
+texture = ExtResource("1_pkx4w")
+region_rect = Rect2(0, 0, 15, 15)
+patch_margin_left = 2
+patch_margin_top = 2
+patch_margin_right = 2
+patch_margin_bottom = 2

@@ -13,12 +13,25 @@ uniform float lighten_amount : hint_range(0, 1, 0.01) = 1.2;
 
 uniform vec3 light_direction = vec3(-0.96, -0.18, 0.2);
 
+uniform float fade_start : hint_range(-100.0, 100.0) = 100.0;
+uniform float fade_end : hint_range(-100.0, 100.0) = -30.0;
+
 float get_depth(vec2 screen_uv, mat4 inv_projection_matrix) {
 	float depth = texture(depth_texture, screen_uv).r;
 	vec3 ndc = vec3(screen_uv * 2.0 - 1.0, depth);
 	vec4 view = inv_projection_matrix * vec4(ndc, 1.0);
 	view.xyz /= view.w;
 	return -view.z;
+}
+
+vec3 get_world_position(vec2 screen_uv, mat4 inv_projection_matrix, mat4 inv_view_matrix) {
+	float depth = texture(depth_texture, screen_uv).r;
+	vec3 ndc = vec3(screen_uv * 2.0 - 1.0, depth);
+	vec4 view = inv_projection_matrix * vec4(ndc, 1.0);
+	view.xyz /= view.w;
+	
+	vec4 world_pos = inv_view_matrix * vec4(view.xyz, 1.0);
+	return world_pos.xyz;
 }
 
 void vertex() {
@@ -29,6 +42,9 @@ void fragment() {
 	float depth = get_depth(SCREEN_UV, INV_PROJECTION_MATRIX);
 	vec3 normal = texture(normal_texture, SCREEN_UV).xyz * 2.0 - 1.0;
 	vec2 texel_size = 1.0 / VIEWPORT_SIZE.xy;
+
+	vec3 world_pos = get_world_position(SCREEN_UV, INV_PROJECTION_MATRIX, INV_VIEW_MATRIX);
+	float outline_fade = smoothstep(fade_end, fade_start, world_pos.y);
 
 	vec2 uvs[4];
 	uvs[0] = vec2(SCREEN_UV.x, SCREEN_UV.y + texel_size.y);
@@ -59,10 +75,10 @@ void fragment() {
 
 		normal_sum += dot(normal_diff, normal_diff) * normal_indicator;
 	}
-	float depth_edge = step(depth_threshold, depth_diff);
+	float depth_edge = step(depth_threshold, depth_diff) * outline_fade;
 
 	float indicator = sqrt(normal_sum);
-	float normal_edge = step(normal_threshold, indicator);
+	float normal_edge = step(normal_threshold, indicator) * outline_fade;
 
 	vec3 original = texture(screen_texture, SCREEN_UV).rgb;
 	vec3 nearest = texture(screen_texture, nearest_uv).rgb;

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=3 uid="uid://brxcvcxfggwjy"]
+[gd_scene load_steps=8 format=3 uid="uid://brxcvcxfggwjy"]
 
 [ext_resource type="Script" uid="uid://ckcvpgfpvus7b" path="res://scripts/enemy.gd" id="1_4gyqm"]
 [ext_resource type="Texture2D" uid="uid://cus8nlt8ag00i" path="res://icon.svg" id="1_7k104"]
@@ -6,10 +6,13 @@
 [ext_resource type="ArrayMesh" uid="uid://gca8pg0qddjb" path="res://assets/shape.obj" id="3_qi2p4"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_4gyqm"]
-size = Vector3(2.09108, 2.01123, 0.0759277)
+size = Vector3(1.27448, 2.01123, 0.0759277)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_qi2p4"]
 size = Vector3(3.92963, 9.43209, 3.67984)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5uy6h"]
+size = Vector3(2.172, 2.10602, 0.240662)
 
 [node name="Enemy" type="CharacterBody3D"]
 script = ExtResource("1_4gyqm")
@@ -23,7 +26,7 @@ transform = Transform3D(6.41696, 0, 0, 0, 8.50631, 0, 0, 0, 3.30384, 0, 1.09961,
 texture = ExtResource("3_iifgy")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0114306, 1.07441, -0.00427246)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0261115, 1.07441, -0.00427246)
 shape = SubResource("BoxShape3D_4gyqm")
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
@@ -47,6 +50,12 @@ shape = SubResource("BoxShape3D_qi2p4")
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.5
 autostart = true
+
+[node name="hitbox" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="hitbox"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.00238037, 1.07504, -0.0101013)
+shape = SubResource("BoxShape3D_5uy6h")
 
 [connection signal="target_reached" from="NavigationAgent3D" to="." method="_on_navigation_agent_3d_target_reached"]
 [connection signal="body_entered" from="Area3D" to="." method="_on_fov_body_entered"]

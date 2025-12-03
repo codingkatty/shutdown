@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://14hy2gahmbvc"
 path.s3tc="res://.godot/imported/shelf_1.png-3b9601b84d2ed8408518b77c720351ce.s3tc.ctex"
+path.etc2="res://.godot/imported/shelf_1.png-3b9601b84d2ed8408518b77c720351ce.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/shelf/shelf_1.png"
-dest_files=["res://.godot/imported/shelf_1.png-3b9601b84d2ed8408518b77c720351ce.s3tc.ctex"]
+dest_files=["res://.godot/imported/shelf_1.png-3b9601b84d2ed8408518b77c720351ce.s3tc.ctex", "res://.godot/imported/shelf_1.png-3b9601b84d2ed8408518b77c720351ce.etc2.ctex"]
 
 [params]
 

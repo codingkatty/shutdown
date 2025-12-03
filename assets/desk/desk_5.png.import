@@ -4,8 +4,9 @@ importer="texture"
 type="CompressedTexture2D"
 uid="uid://i76x16yhtn6m"
 path.s3tc="res://.godot/imported/desk_5.png-97ce52e7c8660ff47158a197650eeaad.s3tc.ctex"
+path.etc2="res://.godot/imported/desk_5.png-97ce52e7c8660ff47158a197650eeaad.etc2.ctex"
 metadata={
-"imported_formats": ["s3tc_bptc"],
+"imported_formats": ["s3tc_bptc", "etc2_astc"],
 "vram_texture": true
 }
 generator_parameters={
@@ -15,7 +16,7 @@ generator_parameters={
 [deps]
 
 source_file="res://assets/desk/desk_5.png"
-dest_files=["res://.godot/imported/desk_5.png-97ce52e7c8660ff47158a197650eeaad.s3tc.ctex"]
+dest_files=["res://.godot/imported/desk_5.png-97ce52e7c8660ff47158a197650eeaad.s3tc.ctex", "res://.godot/imported/desk_5.png-97ce52e7c8660ff47158a197650eeaad.etc2.ctex"]
 
 [params]
 
